@@ -1,0 +1,103 @@
+body {
+	background-color: #FFF5E8;
+}
+
+#title {
+	text-align: center;
+	font-family: 'Righteous', cursive;
+	font-size: 40px;
+	color: #550000;
+}
+
+.mainArea, .mainAreaCity {
+	height: 200px;
+	border: 1px solid black;
+	padding: 10px;
+	width: 1000px;
+	margin: auto;
+	overflow: auto;
+}
+
+h3 {
+	text-align: center;
+}
+
+.battlePicker {
+	display: flex;
+	justify-content: space-around;
+}
+
+.mainText {
+	margin: 0px;
+}
+
+.bottomArea {
+	display: flex;
+	justify-content: space-around;
+}
+
+.actionButtonsArea, .inventoryArea {
+	display: inline-block;
+	border: 1px solid black;
+	padding: 10px;
+	line-height: 150%;
+	margin-top: 20px;
+	width: 300px;
+	height: 300px;
+	overflow: auto;
+}
+
+.inventoryArea {
+	display:none;
+}
+
+.heroSheet, .enemySheet {
+	width: 350px;
+	height: 300px;
+	border: 1px solid black;
+	padding: 10px;
+	margin-top: 20px;
+	overflow: auto;
+}
+
+.name {
+	text-align: center;
+	margin: 5px;
+}
+
+.bigInventoryArea {
+	min-height: 400px;
+	max-height: 800px;
+	border: 1px solid black;
+	padding: 10px;
+	width: 1000px;
+	margin: auto;
+	overflow: auto;
+	display: none;
+}
+
+/*Buttons looking pretty*/
+.actionButton {
+	box-shadow:inset 0px 1px 0px 0px #a6827e;
+	background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
+	background-color:#7d5d3b;
+	border-radius:3px;
+	border:1px solid #54381e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #4d3534;
+	margin: 1px 0px;
+}
+.actionButton:hover {
+	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
+	background-color:#634b30;
+}
+.actionButton:active {
+	position:relative;
+	top:1px;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game of Games</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet"> 
+</head>
+<body>
+	<h1 id="title">Game of Games</h1>
+	<div class="mainArea"></div>
+	<div class="mainAreaCity">
+		<h3>Pick a place to cleanse of all evil</h3>
+		<div class="battlePicker">
+			<button class="actionButton" id="Place1">Forest</button>
+			<button class="actionButton" id="Place2">Caves</button>
+			<button class="actionButton" id="Place3">Maze</button>
+			<button class="actionButton" id="Place4">Castle</button>
+		</div>
+	</div><br>
+	<div class="bottomArea">
+		<div class="actionButtonsArea">
+			<p id="dayNumber">Day number: 1</p>
+			Available actions: <br>
+			<button class="actionButton" id="attackEnemy">Attack</button>
+			<button class="actionButton" id="rest">Rest</button>
+			<button class="actionButton" id="nextFight">Next fight</button>
+			<button class="actionButton" id="backToCity">Back to city</button>
+			<button class="actionButton" id="inventory">Inventory</button>
+		</div>
+<!-- 		<div class="inventoryArea">
+			<div>
+				<button class="actionButton" id="quitInventory2">Back</button>
+			</div>
+		</div> -->
+		<div class="heroSheet">
+			<h1 class="name">Hero</h1>
+			Level: <span id="heroLevel"></span><br>
+			Experience: <span id="heroExperience"></span><br>
+			Hp: <span id="heroHp"></span><br>
+			Damage: <span id="heroDamage"></span><br>
+			Defense: <span id="heroDefense"></span><br>
+			<br>
+			<h5>Equipment</h5>
+			Gold: <span id="heroGold"></span><br>
+			Weapon: <span id="heroWeapon"></span><br>
+			Armor: <span id="heroArmor"></span><br>
+			Ring: <span id="heroRing"></span><br>
+			Amulet: <span id="heroAmulet"></span><br>	
+		</div>
+		<div class="enemySheet">
+			<h1 class="name" id="enemyName"></h1>
+			Level: <span id="enemyLevel"></span><br>
+			Hp: <span id="enemyHp"></span><br>
+			Damage: <span id="enemyDamage"></span><br>			
+		</div>
+	</div>
+	<div class="bigInventoryArea">
+		<button class="actionButton" id="quitInventory">Back</button>
+		<table class="inventoryTable"></table>
+		<div class="inventoryListArea">
+		</div>
+	</div>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
