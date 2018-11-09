@@ -70,11 +70,26 @@ h3 {
 	max-height: 800px;
 	border: 1px solid black;
 	padding: 10px;
-	width: 1000px;
+	width: 1300px;
 	margin: auto;
 	overflow: auto;
 	display: none;
 }
+
+.bigInventoryAreaUnder {
+	justify-content: space-around;
+	display: flex;
+}
+
+.invWeaponArea, .invArmorArea, .invRingArea, .invMiscellanousArea {
+	width: 350px;
+	height: 300px;
+	border: 1px solid black;
+	padding: 10px;
+	margin-top: 20px;
+	overflow: auto;	
+}
+
 
 /*Buttons looking pretty*/
 .actionButton {
@@ -93,6 +108,12 @@ h3 {
 	text-shadow:0px 1px 0px #4d3534;
 	margin: 1px 0px;
 }
+
+.actionButtonSmall {
+	font-size:11px;
+	padding:4px 20px;
+}
+
 .actionButton:hover {
 	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
 	background-color:#634b30;
