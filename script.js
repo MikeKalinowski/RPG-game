@@ -316,6 +316,10 @@ const bottomArea = document.querySelector(".bottomArea")
 const inventoryListArea = document.querySelector(".inventoryListArea")
 const actionButtonsArea = document.querySelector(".actionButtonsArea")
 const bigInventoryArea = document.querySelector(".bigInventoryArea")
+const invWeaponArea = document.querySelector(".invWeaponArea")
+const invArmorArea = document.querySelector(".invArmorArea")
+const invRingArea = document.querySelector(".invRingArea")
+const invMiscellanousArea = document.querySelector(".invMiscellanousArea")
 
 function initializeCityView() {
 	mainArea.style.display="none";
@@ -347,19 +351,11 @@ function initializePostBattleView() {
 	}
 }
 
-// function initializeInventoryView() {
-// 	actionButtonsArea.style.display="none";
-// 	inventoryArea.style.display="block";
-// 	inventoryListArea.innerHTML="";
-// 	showItemsInInventory()
-// }
-
 function initializeBigInventoryView() {
 	mainArea.style.display="none";
 	mainAreaCity.style.display="none";
 	bottomArea.style.display="none";
 	bigInventoryArea.style.display="block";
-	inventoryListArea.innerHTML="";
 	showItemsInInventory()
 }
 
@@ -379,11 +375,11 @@ function backToCity() {
 }
 
 function addTextToMainArea(text) {
-	const newText = document.createElement("p")
-	newText.appendChild(document.createTextNode(text));
-	mainArea.appendChild(newText);
-	newText.setAttribute("class", "mainText");
-	const topPos = newText.offsetTop; //Scrolls div to bottom
+	const itemName = document.createElement("p")
+	itemName.appendChild(document.createTextNode(text));
+	mainArea.appendChild(itemName);
+	itemName.setAttribute("class", "mainText");
+	const topPos = itemName.offsetTop; //Scrolls div to bottom
 	mainArea.scrollTop = topPos;
 }
 
@@ -416,6 +412,7 @@ function pickRandomEnemy(place) {
 	currentPlace = place
 	addLootToMonster();
 	function addLootToMonster() {
+		monsterLoot = [];
 		currentEnemy.loot.forEach(function(i) {
 			if ((1 - Math.random()) < i.chance) {
 				monsterLoot.push(i.name);
@@ -502,63 +499,91 @@ function attack(attacker, defender) {
 let inventory = [];
 
 function showItemsInInventory() {
-	inventory.sort(function(a, b) {
-		if(a.name < b.name) return -1;
-    	if(a.name > b.name) return 1;
-    	return 0;
-	});
-	inventory.forEach((item, index) => {
-		const newText = document.createElement("p");
-		newText.appendChild(document.createTextNode(item.name));
-		inventoryListArea.appendChild(newText);
-		addEquipButton()
+	cleanInventory()
+	// showEquippedItems()
+	showItemByItem()
 
-		function addEquipButton() {
-			const newButton = document.createElement("button")
-			newButton.appendChild(document.createTextNode("Equip"));
-			newText.appendChild(newButton)
-			newButton.className = "actionButton equipButton";
-			newButton.setAttribute("id", index); 
-			newButton.addEventListener("click", equipItem)
+	function cleanInventory() {
+		invWeaponArea.innerHTML="";
+		invArmorArea.innerHTML="";
+		invRingArea.innerHTML="";
+		invMiscellanousArea.innerHTML="";
+		inventory.sort(function(a, b) {
+			if(a.name < b.name) return -1;
+	    	if(a.name > b.name) return 1;
+	    	return 0;
+		});
+	}
+	
+	// function showEquippedItems() {
 
-			function equipItem() {
-				let item = inventory[this.id]
+	function showItemByItem() {
+		inventory.forEach((item, index) => {
+			const itemName = document.createElement("p");
+			itemName.appendChild(document.createTextNode(item.name + " "));
+			appendToGoodType();
+			addEquipButton();
+
+			function appendToGoodType() {
 				if (item.type == "weapon") {
-					equipWeapon(item)
+					invWeaponArea.appendChild(itemName);
 				} else if (item.type == "armor") {
-					equipArmor(item)
+					invArmorArea.appendChild(itemName);
 				} else if (item.type == "ring") {
-					console.log("ring")
-				} else if (item.type == "amulet") {
-					console.log("amulet")
+					invRingArea.appendChild(itemName);
+				} else if (item.type == "miscellanous") {
+					invMiscellanousArea.appendChild(itemName);
 				}
-				refreshHeroSheet()			
+			};
+			function addEquipButton() {
+				const newButton = document.createElement("button")
+				newButton.appendChild(document.createTextNode("Equip"));
+				itemName.appendChild(newButton);
+				newButton.className = "actionButton equipButton actionButtonSmall";
+				newButton.setAttribute("id", index); 
+				newButton.addEventListener("click", equipItem);
 
-				function equipWeapon(weaponToEquip) {
-					hero.equipment.weapon = weaponToEquip.name
-					hero.minDmg = weaponToEquip.minDmg;
-					hero.maxDmg = weaponToEquip.maxDmg;
-				}
-				function equipArmor(armorToEquip) {
-					hero.equipment.armor = armorToEquip.name
-					hero.defense = armorToEquip.defense;
-				}
-			}
-		}
+				function equipItem() {
+					let item = inventory[this.id]
+					if (item.type == "weapon") {
+						equipWeapon(item)
+					} else if (item.type == "armor") {
+						equipArmor(item)
+					} else if (item.type == "ring") {
+						console.log("ring")
+					} else if (item.type == "amulet") {
+						console.log("amulet")
+					};
+					refreshHeroSheet();
+					inventory.splice(this.id, 1);
+					showItemsInInventory();
 
-	});
+					function equipWeapon(weaponToEquip) {
+						hero.equipment.weapon = weaponToEquip.name;
+						hero.minDmg = weaponToEquip.minDmg;
+						hero.maxDmg = weaponToEquip.maxDmg;
+					};
+					function equipArmor(armorToEquip) {
+						hero.equipment.armor = armorToEquip.name;
+						hero.defense = armorToEquip.defense;
+					};
+				};
+			};
+
+		});
+	};
 }
 
 
 // ============================ 8.CITY ACTIONS ============================
 // ==== X.1 REST
-let day = 1
-const dayNumber = document.querySelector("#dayNumber")
+let day = 1;
+const dayNumber = document.querySelector("#dayNumber");
 function rest() {
 	hero.hp = hero.maxHp;
 	refreshHeroSheet();
 	day++;
-	dayNumber.innerHTML = `Day number: ${day}`
+	dayNumber.innerHTML = `Day number: ${day}`;
 	restButton.style.display = "none";
 }
 
