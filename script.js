@@ -11,12 +11,14 @@ const hero = {
 	experienceToLevel: 10,
 	level: 1,
 	gold: 100,
-	equipment: {
-		armor: "",
-		weapon: "Swordy Sword",
-		ring: "",
-		amulet: ""
-	}};
+	// equipment: {
+	// 	armor: "",
+	// 	weapon: "Swordy Sword",
+	// 	ring: "",
+	// 	amulet: ""
+	// }};
+	equipmentWorn: []
+};
 
 let currentEnemy = {name: "none"} //It will copy one of enemies' sheets later
 
@@ -28,9 +30,9 @@ const enemyPlace = [{
 		level: 1,
 		minDmg: 1,
 		maxDmg: 2,
-		hp: 30,
-		maxHp: 30,
-		defense: 0,
+		hp: 15,
+		maxHp: 15,
+		defense: 1,
 		loot: [
 			{ 
 				name: "Sword of glory",
@@ -38,34 +40,34 @@ const enemyPlace = [{
 			},
 			{
 				name: "Staff of everythingness",
-				chance: 0.5
+				chance: 1
 			},
 			{
 				name: "Rags",
 				chance: 0.9
 			}],
-		experienceWorth: 3,
+		experienceWorth: 5,
 	},
 	{
 		name: "Giraffe",
 		level: 2,
 		minDmg: 2,
 		maxDmg: 3,
-		hp: 25,
-		maxHp: 25,
-		defense: 0,
+		hp: 8,
+		maxHp: 8,
+		defense: 1,
 		loot: [
 			{ 
 				name: "Sword of glory",
-				chance: 0.5
+				chance: 0.3
 			},
 			{
 				name: "Staff of everythingness",
-				chance: 0.5
+				chance: 1
 			},
 			{
 				name: "Rags",
-				chance: 0.9
+				chance: 0.5
 			}],
 		experienceWorth: 4,
 	},
@@ -80,13 +82,13 @@ const enemyPlace = [{
 		loot: [
 			{ 
 				name: "Sword of glory",
-				chance: 0.5
+				chance: 0.1
 			},
 			{
 				name: "Staff of everythingness",
-				chance: 0.5
+				chance: 1
 			}],
-		experienceWorth: 1,
+		experienceWorth: 2,
 	}]
 },
 {	
@@ -106,7 +108,7 @@ const enemyPlace = [{
 			},
 			{
 				name: "Staff of everythingness",
-				chance: 0.5
+				chance: 1
 			}],
 		experienceWorth: 10,
 	},
@@ -125,7 +127,7 @@ const enemyPlace = [{
 			},
 			{
 				name: "Staff of everythingness",
-				chance: 0.5
+				chance: 1
 			}],
 		experienceWorth: 15,
 	},
@@ -144,7 +146,7 @@ const enemyPlace = [{
 			},
 			{
 				name: "Staff of everythingness",
-				chance: 0.5
+				chance: 1
 			}],
 		experienceWorth: 20,
 	}]
@@ -192,8 +194,8 @@ const equipment = [{
 	type: "weapon",
 	name: "Sword of glory",
 	value: 1,
-	minDmg: 5,
-	maxDmg: 10,
+	minDmg: 3,
+	maxDmg: 6,
 	defense: 0,
 	levelRequirement: 1,
 },
@@ -271,15 +273,25 @@ function refreshHeroSheet() {
 	heroSheetLevel.innerHTML = hero.level;
 	heroSheetExperience.innerHTML = `${hero.experienceCurrent}/${hero.experienceToLevel}`;
 	heroSheetHp.innerHTML = `${hero.hp}/${hero.maxHp}`;
+	moveExpProgressBar()
+	moveHpProgressBar()
+}
+
+function refreshHeroEquipment() {
 	heroSheetDamage.innerHTML = `${hero.minDmg}-${hero.maxDmg}`;
 	heroSheetDefense.innerHTML = `${hero.defense}`;
 	heroSheetGold.innerHTML = hero.gold;
-	heroSheetWeapon.innerHTML = hero.equipment.weapon;
-	heroSheetArmor.innerHTML = hero.equipment.armor;
-	heroSheetRing.innerHTML = hero.equipment.ring;
-	heroSheetAmulet.innerHTML = hero.equipment.amulet;
-	moveExpProgressBar()
-	moveHpProgressBar()
+	hero.equipmentWorn.forEach(function(val, index) {
+		if (val.type === "weapon") {
+			heroSheetWeapon.innerHTML = val.name;
+		} else if (val.type === "armor") {
+			heroSheetArmor.innerHTML = val.name;
+		} else if (val.type === "ring") {
+			heroSheetRing.innerHTML = val.name;
+		} else if (val.type === "weapon") {
+			heroSheetAmulet.innerHTML = val.name;
+		}
+	})
 }
 
 
@@ -572,7 +584,6 @@ let inventory = [];
 
 function showItemsInInventory() {
 	cleanInventory()
-	// showEquippedItems()
 	showItemByItem()
 
 	function cleanInventory() {
@@ -587,62 +598,110 @@ function showItemsInInventory() {
 		});
 	}
 	
-	// function showEquippedItems() {
-
 	function showItemByItem() {
-		inventory.forEach((item, index) => {
-			const itemName = document.createElement("p");
-			itemName.appendChild(document.createTextNode(item.name + " "));
-			appendToGoodType();
-			addEquipButton();
+		addEquipmentWornItems()
+		addInventoryItems()
+		
+		function addEquipmentWornItems() {
+			hero.equipmentWorn.forEach((item, index) => {
+				const itemName = document.createElement("p");
+				itemName.appendChild(document.createTextNode("Equipped: " + item.name + " "));
+				appendToGoodType();
 
-			function appendToGoodType() {
-				if (item.type == "weapon") {
-					invWeaponArea.appendChild(itemName);
-				} else if (item.type == "armor") {
-					invArmorArea.appendChild(itemName);
-				} else if (item.type == "ring") {
-					invRingArea.appendChild(itemName);
-				} else if (item.type == "miscellanous") {
-					invMiscellanousArea.appendChild(itemName);
-				}
-			};
-			function addEquipButton() {
-				const newButton = document.createElement("button")
-				newButton.appendChild(document.createTextNode("Equip"));
-				itemName.appendChild(newButton);
-				newButton.className = "actionButton equipButton actionButtonSmall";
-				newButton.setAttribute("id", index); 
-				newButton.addEventListener("click", equipItem);
-
-				function equipItem() {
-					let item = inventory[this.id]
+				function appendToGoodType() {
 					if (item.type == "weapon") {
-						equipWeapon(item)
+						invWeaponArea.appendChild(itemName);
 					} else if (item.type == "armor") {
-						equipArmor(item)
+						invArmorArea.appendChild(itemName);
 					} else if (item.type == "ring") {
-						console.log("ring")
-					} else if (item.type == "amulet") {
-						console.log("amulet")
-					};
-					refreshHeroSheet();
-					inventory.splice(this.id, 1);
-					showItemsInInventory();
+						invRingArea.appendChild(itemName);
+					} else if (item.type == "miscellanous") {
+						invMiscellanousArea.appendChild(itemName);
+					}
+				};
+			});			
+		}
+		function addInventoryItems() {
+			inventory.forEach((item, index) => {
+				const itemName = document.createElement("p");
+				itemName.appendChild(document.createTextNode(item.name + " "));
+				appendToGoodType();
+				addEquipButton();
 
-					function equipWeapon(weaponToEquip) {
-						hero.equipment.weapon = weaponToEquip.name;
-						hero.minDmg = weaponToEquip.minDmg;
-						hero.maxDmg = weaponToEquip.maxDmg;
-					};
-					function equipArmor(armorToEquip) {
-						hero.equipment.armor = armorToEquip.name;
-						hero.defense = armorToEquip.defense;
+				function appendToGoodType() {
+					if (item.type == "weapon") {
+						invWeaponArea.appendChild(itemName);
+					} else if (item.type == "armor") {
+						invArmorArea.appendChild(itemName);
+					} else if (item.type == "ring") {
+						invRingArea.appendChild(itemName);
+					} else if (item.type == "miscellanous") {
+						invMiscellanousArea.appendChild(itemName);
+					}
+				};
+				function addEquipButton() {
+					const newButton = document.createElement("button")
+					newButton.appendChild(document.createTextNode("Equip"));
+					itemName.appendChild(newButton);
+					newButton.className = "actionButton equipButton actionButtonSmall";
+					newButton.setAttribute("id", index); 
+					newButton.addEventListener("click", equipItem);
+
+					function equipItem() {
+						let item = inventory[this.id]
+						if (item.type == "weapon") {
+							equipWeapon(item)
+						} else if (item.type == "armor") {
+							equipArmor(item)
+						} else if (item.type == "ring") {
+							console.log("ring")
+						} else if (item.type == "amulet") {
+							console.log("amulet")
+						};
+						// console.log("New equipment worn:");
+						// console.log(hero.equipmentWorn)
+						// console.log(item)
+						inventory.splice(this.id, 1);
+
+
+						hero.equipmentWorn.forEach(function(val, index) {
+							if (val.type === "weapon") {
+								heroSheetWeapon.innerHTML = val.name;
+							} else if (val.type === "armor") {
+								heroSheetArmor.innerHTML = val.name;
+							} else if (val.type === "ring") {
+								heroSheetRing.innerHTML = val.name;
+							} else if (val.type === "amulet") {
+								heroSheetAmulet.innerHTML = val.name;
+							}
+						})
+						moveItemFromEqWorn()
+						hero.equipmentWorn.push(item);
+						showItemsInInventory();
+						refreshHeroSheet();
+						refreshHeroEquipment();
+
+						function moveItemFromEqWorn() {
+							var itemToRemoveFromEq = hero.equipmentWorn.findIndex(function(el) {
+								return el.type === item.type
+							})
+							if (itemToRemoveFromEq != -1) {
+								inventory.push(hero.equipmentWorn[itemToRemoveFromEq])
+								hero.equipmentWorn.splice(itemToRemoveFromEq, 1)
+							} else {}
+						}
+						function equipWeapon(weaponToEquip) {
+							hero.minDmg = weaponToEquip.minDmg;
+							hero.maxDmg = weaponToEquip.maxDmg;
+						};
+						function equipArmor(armorToEquip) {
+							hero.defense = armorToEquip.defense;
+						};
 					};
 				};
-			};
 
-		});
+			});
+		}
 	};
 }
 
@@ -665,6 +724,15 @@ function rest() {
 
 
 // ============================ 9.RUN FUNCTIONS ON PAGE LOAD ============================
+giveStartingItems()
 refreshHeroSheet()
+refreshHeroEquipment()
 refreshEnemySheet()
 initializeCityView()
+
+function giveStartingItems() {
+	let weapon = equipment[equipment.findIndex((el) => el.name === "Club")]
+	hero.equipmentWorn.push(weapon)
+	hero.minDmg = weapon.minDmg;
+	hero.maxDmg = weapon.maxDmg;
+}
