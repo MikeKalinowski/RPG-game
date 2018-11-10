@@ -440,6 +440,11 @@ function moveHpProgressBar() {
 	}
 }
 
+function fillHpProgressBar() {
+	hpProgressBarWidth = 100;
+	hpProgressBar.style.width = hpProgressBarWidth + '%'; 
+	hpProgressBar.innerHTML = `${hero.hp}/${hero.maxHp}`;
+}
 
 const hpEnProgressBar = document.getElementById("hpEnProgressBar"); 
 var hpEnProgressBarWidth = 100;
@@ -565,6 +570,7 @@ function attack(attacker, defender) {
 					hero.level++;
 					hero.maxHp = hero.maxHp + 5;
 					hero.hp = hero.maxHp;
+					fillHpProgressBar()
 					hero.experienceCurrent = hero.experienceCurrent - hero.experienceToLevel;
 					hero.experienceToLevel = hero.experienceToLevel + 3;
 					leveledUp = 1
@@ -601,11 +607,12 @@ function showItemsInInventory() {
 	function showItemByItem() {
 		addEquipmentWornItems()
 		addInventoryItems()
-		
+
 		function addEquipmentWornItems() {
 			hero.equipmentWorn.forEach((item, index) => {
 				const itemName = document.createElement("p");
 				itemName.appendChild(document.createTextNode("Equipped: " + item.name + " "));
+				addTooltip(itemName, item)
 				appendToGoodType();
 
 				function appendToGoodType() {
@@ -625,6 +632,7 @@ function showItemsInInventory() {
 			inventory.forEach((item, index) => {
 				const itemName = document.createElement("p");
 				itemName.appendChild(document.createTextNode(item.name + " "));
+				addTooltip(itemName, item)
 				appendToGoodType();
 				addEquipButton();
 
@@ -702,6 +710,13 @@ function showItemsInInventory() {
 
 			});
 		}
+		function addTooltip(itemName, item) {
+			itemName.className = "tooltipOutside";
+			const tooltip = document.createElement("span");
+			tooltip.className = "tooltipInside";
+			tooltip.appendChild(document.createTextNode(`Damage: ${item.minDmg}-${item.maxDmg}, Defense: ${item.defense}`));
+			itemName.appendChild(tooltip);
+		}
 	};
 }
 
@@ -716,12 +731,8 @@ function rest() {
 	day++;
 	dayNumber.innerHTML = `Day number: ${day}`;
 	restButton.style.display = "none";
-	hpProgressBarWidth = 100;
-	hpProgressBar.style.width = hpProgressBarWidth + '%'; 
-	hpProgressBar.innerHTML = `${hero.hp}/${hero.maxHp}`;
+	fillHpProgressBar()
 }
-
-
 
 // ============================ 9.RUN FUNCTIONS ON PAGE LOAD ============================
 giveStartingItems()

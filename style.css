@@ -34,6 +34,7 @@ h3 {
 .bottomArea {
 	display: flex;
 	justify-content: space-around;
+	overflow: visible;
 }
 
 .actionButtonsArea, .inventoryArea {
@@ -44,7 +45,7 @@ h3 {
 	margin-top: 20px;
 	width: 300px;
 	height: 300px;
-	overflow: auto;
+	overflow: visible;
 }
 
 .inventoryArea {
@@ -87,7 +88,7 @@ h3 {
 	border: 1px solid black;
 	padding: 10px;
 	margin-top: 20px;
-	overflow: auto;	
+	overflow: visible;	
 }
 
 
@@ -155,4 +156,28 @@ h3 {
 	display:inline-block;
 	width:auto;
 	text-align:center;
+}
+
+.tooltipOutside {
+	position:relative
+}
+
+.tooltipInside {
+	background-color:#FFF5E8;
+	display:inline-block;
+	padding-left:8px;
+	padding-right:8px;
+	text-align:center;
+	position:absolute;
+	left:40px;
+	bottom:30px;
+	border:1px solid #54381e;
+}
+
+.tooltipInside {
+	display:none
+}
+
+.tooltipOutside:hover .tooltipInside{
+	display:inline-block
 }
