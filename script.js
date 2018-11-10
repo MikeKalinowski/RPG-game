@@ -2,7 +2,7 @@
 // ==== 1.1 CHARACTER
 const hero = {
 	name: "Hero",
-	minDmg: 10,
+	minDmg: 5,
 	maxDmg: 10,
 	hp: 20,
 	maxHp: 20,
@@ -278,6 +278,8 @@ function refreshHeroSheet() {
 	heroSheetArmor.innerHTML = hero.equipment.armor;
 	heroSheetRing.innerHTML = hero.equipment.ring;
 	heroSheetAmulet.innerHTML = hero.equipment.amulet;
+	moveExpProgressBar()
+	moveHpProgressBar()
 }
 
 
@@ -384,6 +386,69 @@ function addTextToMainArea(text) {
 }
 
 
+// ==== 4.1 Progress bars
+
+const expProgressBar = document.getElementById("expProgressBar"); 
+var leveledUp = 0;
+var expProgressBarWidth = 0;
+function moveExpProgressBar() {
+	let maximumWidth = Math.floor(hero.experienceCurrent/hero.experienceToLevel*100);
+	let widthDifference = Math.floor(100/hero.experienceToLevel)
+	var id = setInterval(frame, 50);
+	function frame() {
+	    if (leveledUp === 1) {
+	    	leveledUp = 0;
+	    	expProgressBarWidth = 0;
+	    }
+	    if (expProgressBarWidth >= maximumWidth) {
+	    	clearInterval(id);
+	    } else {
+		    expProgressBarWidth = expProgressBarWidth + widthDifference; 
+		    expProgressBar.style.width = expProgressBarWidth + '%'; 
+		    expProgressBar.innerHTML = `${hero.experienceCurrent}/${hero.experienceToLevel}`;
+	    }
+	}
+}
+
+
+const hpProgressBar = document.getElementById("hpProgressBar"); 
+var hpProgressBarWidth = 100;
+function moveHpProgressBar() {
+	let maximumWidth = Math.floor(hero.hp/hero.maxHp*100);
+	let widthDifference = Math.floor(100/hero.maxHp);
+	var id = setInterval(frame, 50);
+	function frame() {
+	    if (hpProgressBarWidth <= maximumWidth) {
+	    	clearInterval(id);
+	    } else {
+		    hpProgressBarWidth = hpProgressBarWidth - widthDifference; 
+		    hpProgressBar.style.width = hpProgressBarWidth + '%'; 
+		    hpProgressBar.innerHTML = `${hero.hp}/${hero.maxHp}`;
+	    }
+	}
+}
+
+
+const hpEnProgressBar = document.getElementById("hpEnProgressBar"); 
+var hpEnProgressBarWidth = 100;
+function moveHpEnProgressBar() {
+	let maximumWidth = Math.floor(currentEnemy.hp/currentEnemy.maxHp*100);
+	let widthDifference = Math.floor(100/currentEnemy.maxHp);
+	var id = setInterval(frames, 50);
+	function frames() {
+	    if (hpEnProgressBarWidth <= maximumWidth) {
+	    	clearInterval(id);
+	    } else {
+			hpEnProgressBarWidth = hpEnProgressBarWidth - widthDifference; 
+			if (hpEnProgressBarWidth < 0) {
+				hpEnProgressBar.style.width = 0 + '%'
+			} else {
+				hpEnProgressBar.style.width = hpEnProgressBarWidth + '%'
+			}
+			hpEnProgressBar.innerHTML = `${currentEnemy.hp}/${currentEnemy.maxHp}`;
+	    }
+	}
+}
 
 
 
@@ -400,17 +465,22 @@ function newBattlePlace(place) {
 //Continuing old battle
 function nextFight() {
 	pickRandomEnemy(currentPlace);
-	mainArea.innerHTML = "";
 	initializeBattleView();
 }
 
 function pickRandomEnemy(place) {
 	//Count number of fights?
+	mainArea.innerHTML = "";
 	currentEnemy = Object.assign({}, enemyPlace[place].enemies[Math.floor(Math.random() * enemyPlace[place].enemies.length)]);
 	addTextToMainArea(`You met a ${currentEnemy.name}. Prepare for battle!`);
 	refreshEnemySheet();
 	currentPlace = place
 	addLootToMonster();
+	hpEnProgressBarWidth = 100;
+	hpEnProgressBar.style.width = 100 + '%'
+	moveHpEnProgressBar()
+	hpEnProgressBar.innerHTML = `${currentEnemy.hp}/${currentEnemy.maxHp}`;
+
 	function addLootToMonster() {
 		monsterLoot = [];
 		currentEnemy.loot.forEach(function(i) {
@@ -440,6 +510,7 @@ function attack(attacker, defender) {
 	let dmgDealt = calculateAttackDmg(attacker, defender) // needed or it will calculate different dmg every time
 	defender.hp = defender.hp - dmgDealt;
 	defender.hp < 0 ? defender.hp=0 : ""
+	moveHpEnProgressBar()
 	addTextToMainArea(`${defender.name} receives ${dmgDealt} damage. He has ${defender.hp}hp left`);
 	if (defender.hp <= 0) {isDead()}
 
@@ -484,6 +555,7 @@ function attack(attacker, defender) {
 					hero.hp = hero.maxHp;
 					hero.experienceCurrent = hero.experienceCurrent - hero.experienceToLevel;
 					hero.experienceToLevel = hero.experienceToLevel + 3;
+					leveledUp = 1
 				}
 			}		
 		} else { // if (defender === hero)
@@ -585,6 +657,9 @@ function rest() {
 	day++;
 	dayNumber.innerHTML = `Day number: ${day}`;
 	restButton.style.display = "none";
+	hpProgressBarWidth = 100;
+	hpProgressBar.style.width = hpProgressBarWidth + '%'; 
+	hpProgressBar.innerHTML = `${hero.hp}/${hero.maxHp}`;
 }
 
 

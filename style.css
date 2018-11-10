@@ -122,3 +122,37 @@ h3 {
 	position:relative;
 	top:1px;
 }
+
+.progressBar {
+	color:#000;background-color:#f1f1f1
+}
+
+.w3-container:after,.w3-container:before {
+	content:"";
+	display:table;
+	clear:both
+}
+
+#expProgressBar {
+	color:#fff;
+	background-color:#0D32CB;
+	display:inline-block;
+	width:auto;
+	text-align:center;
+}
+
+#hpProgressBar {
+	color:#fff;
+	background-color:#4CAF50;
+	display:inline-block;
+	width:auto;
+	text-align:center;
+}
+
+#hpEnProgressBar {
+	color:#fff;
+	background-color:#F1003C;
+	display:inline-block;
+	width:auto;
+	text-align:center;
+}
