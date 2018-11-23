@@ -91,6 +91,9 @@ h3 {
 	overflow: visible;	
 }
 
+#dayNumber {
+	margin: 0;
+}
 
 /*Buttons looking pretty*/
 .actionButton {
