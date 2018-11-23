@@ -4,113 +4,89 @@ const hero = {
 	name: "Hero",
 	minDmg: 5,
 	maxDmg: 10,
-	hp: 20,
-	maxHp: 20,
+	hp: 15,
+	maxHp: 15,
 	defense: 0,
 	experienceCurrent: 0,
-	experienceToLevel: 10,
+	experienceToLevel: 3,
 	level: 1,
 	gold: 100,
-	// equipment: {
-	// 	armor: "",
-	// 	weapon: "Swordy Sword",
-	// 	ring: "",
-	// 	amulet: ""
-	// }};
 	equipmentWorn: []
 };
-
-let currentEnemy = {name: "none"} //It will copy one of enemies' sheets later
 
 // ==== 1.2 ENEMIES
 const enemyPlace = [{
 	name: "Forest",
 	enemies: [{
-		name: "Troll",
+		name: "Rabid Rabbit",
 		level: 1,
 		minDmg: 1,
 		maxDmg: 2,
-		hp: 15,
-		maxHp: 15,
-		defense: 1,
-		loot: [
-			{ 
-				name: "Sword of glory",
-				chance: 0.5
-			},
-			{
-				name: "Staff of everythingness",
-				chance: 1
-			},
-			{
-				name: "Rags",
-				chance: 0.9
-			}],
-		experienceWorth: 5,
-	},
-	{
-		name: "Giraffe",
-		level: 2,
-		minDmg: 2,
-		maxDmg: 3,
 		hp: 8,
 		maxHp: 8,
-		defense: 1,
-		loot: [
-			{ 
-				name: "Sword of glory",
-				chance: 0.3
-			},
-			{
-				name: "Staff of everythingness",
-				chance: 1
-			},
-			{
-				name: "Rags",
-				chance: 0.5
-			}],
-		experienceWorth: 4,
-	},
-	{
-		name: "Snail",
-		level: 1,
-		minDmg: 0,
-		maxDmg: 1,
-		hp: 5,
-		maxHp: 5,
 		defense: 0,
 		loot: [
 			{ 
-				name: "Sword of glory",
-				chance: 0.1
+				name: "Thick Stick",
+				chance: 0.2
+			}],
+		experienceWorth: 1,
+	},
+	{
+		name: "Zombie's Arm",
+		level: 1,
+		minDmg: 1,
+		maxDmg: 2,
+		hp: 11,
+		maxHp: 11,
+		defense: 0,
+		loot: [
+			{ 
+				name: "Thick Stick",
+				chance: 0.3
+			}],
+		experienceWorth: 1,
+	},
+	{
+		name: "Elderly skeleton",
+		level: 2,
+		minDmg: 2,
+		maxDmg: 3,
+		hp: 7,
+		maxHp: 7,
+		defense: 0,
+		loot: [
+			{ 
+				name: "Thick Stick",
+				chance: 0.4
 			},
 			{
-				name: "Staff of everythingness",
-				chance: 1
+				name: "Rotten Club",
+				chance: 0.25
 			}],
 		experienceWorth: 2,
 	}]
 },
 {	
-	name: "Cave",
+	name: "Caves",
 	enemies: [{
 		name: "Golem",
-		level: 6,
-		minDmg: 6,
-		maxDmg: 9,
-		hp: 40,
-		maxHp: 40,
+		level: 4,
+		minDmg: 2,
+		maxDmg: 4,
+		hp: 16,
+		maxHp: 16,
 		defense: 0,
 		loot: [
 			{ 
-				name: "Sword of glory",
+				name: "Old Sword",
 				chance: 0.5
 			},
 			{
-				name: "Staff of everythingness",
+				name: "Used Cloth Armor",
 				chance: 1
 			}],
-		experienceWorth: 10,
+		experienceWorth: 3,
 	},
 	{
 		name: "Elemental",
@@ -122,11 +98,11 @@ const enemyPlace = [{
 		defense: 0,
 		loot: [
 			{ 
-				name: "Sword of glory",
+				name: "Old Sword",
 				chance: 0.5
 			},
 			{
-				name: "Staff of everythingness",
+				name: "Used Cloth Armor",
 				chance: 1
 			}],
 		experienceWorth: 15,
@@ -141,18 +117,49 @@ const enemyPlace = [{
 		defense: 0,
 		loot: [
 			{ 
-				name: "Sword of glory",
+				name: "Old Sword",
 				chance: 0.5
 			},
 			{
-				name: "Staff of everythingness",
+				name: "Used Cloth Armor",
 				chance: 1
 			}],
 		experienceWorth: 20,
 	}]
 }]
 
-// ==== 1.3 Equipment
+// ==== 1.3 Chest Loot
+
+const lootChest = [{
+	type: "Forest",
+	loot: [{
+		name: "Rags",
+		chance: 1
+	}]
+},
+{
+	type: "Caves",
+	loot: [{
+		name: "Rags",
+		chance: 1
+	}]
+},
+{
+	type: "Maze",
+	loot: [{
+		name: "Rags",
+		chance: 1
+	}]
+},
+{
+	type: "Castle",
+	loot: [{
+		name: "Rags",
+		chance: 1
+	}]
+}]
+
+// ==== 1.4 Equipment
 
 const equipment = [{
 	type: "armor",
@@ -165,21 +172,57 @@ const equipment = [{
 },
 {
 	type: "armor",
-	name: "Leather Armor",
-	value: 20,
+	name: "Used Cloth Armor",
+	value: 5,
 	minDmg: 0,
 	maxDmg: 0,
 	defense: 2,
-	levelRequirement: 2,
+	levelRequirement: 3,
 },
 {
 	type: "weapon",
-	name: "Stick",
+	name: "Pointy Rock",
 	value: 1,
 	minDmg: 1,
-	maxDmg: 2,
+	maxDmg: 3,
 	defense: 0,
 	levelRequirement: 1,
+},
+{
+	type: "weapon",
+	name: "Thick Stick",
+	value: 1,
+	minDmg: 2,
+	maxDmg: 3,
+	defense: 0,
+	levelRequirement: 1,
+},
+{
+	type: "weapon",
+	name: "Rotten Club",
+	value: 1,
+	minDmg: 2,
+	maxDmg: 5,
+	defense: 0,
+	levelRequirement: 1,
+},
+{
+	type: "weapon",
+	name: "Rusty Dagger",
+	value: 2,
+	minDmg: 3,
+	maxDmg: 5,
+	defense: 0,
+	levelRequirement: 3,
+},
+{
+	type: "weapon",
+	name: "Old Sword",
+	value: 5,
+	minDmg: 5,
+	maxDmg: 10,
+	defense: 0,
+	levelRequirement: 4,
 },
 {
 	type: "weapon",
@@ -301,6 +344,8 @@ const enemySheetLevel = document.querySelector("#enemyLevel")
 const enemySheetHp = document.querySelector("#enemyHp")
 const enemySheetDamage = document.querySelector("#enemyDamage")
 
+let currentEnemy = {name: "none"} //It will copy one of enemies' sheets later
+
 function refreshEnemySheet() {
 	enemySheetName.innerHTML = `Enemy: ${currentEnemy.name}`;
 	enemySheetLevel.innerHTML = currentEnemy.level;
@@ -403,15 +448,17 @@ function addTextToMainArea(text) {
 const expProgressBar = document.getElementById("expProgressBar"); 
 var leveledUp = 0;
 var expProgressBarWidth = 0;
+
 function moveExpProgressBar() {
 	let maximumWidth = Math.floor(hero.experienceCurrent/hero.experienceToLevel*100);
 	let widthDifference = Math.floor(100/hero.experienceToLevel)
 	var id = setInterval(frame, 50);
+	if (leveledUp === 1) {
+		leveledUp = 0;
+		expProgressBarWidth = 0;
+		expProgressBar.style.width = expProgressBarWidth + '%'; 
+	}
 	function frame() {
-	    if (leveledUp === 1) {
-	    	leveledUp = 0;
-	    	expProgressBarWidth = 0;
-	    }
 	    if (expProgressBarWidth >= maximumWidth) {
 	    	clearInterval(id);
 	    } else {
@@ -440,6 +487,11 @@ function moveHpProgressBar() {
 	}
 }
 
+function fillHpProgressBar() {
+	hpProgressBarWidth = 100;
+	hpProgressBar.style.width = hpProgressBarWidth + '%'; 
+	hpProgressBar.innerHTML = `${hero.hp}/${hero.maxHp}`;
+}
 
 const hpEnProgressBar = document.getElementById("hpEnProgressBar"); 
 var hpEnProgressBarWidth = 100;
@@ -534,18 +586,48 @@ function attack(attacker, defender) {
 	function isDead() {
 		if (defender === currentEnemy) {
 			addTextToMainArea(`${defender.name} is dead!`);
-			addTextToMainArea(`${defender.name} drops ${monsterLoot}.`);
 			addTextToMainArea(`You gain +${defender.experienceWorth} experience`)
+			if (monsterLoot.length > 0) {
+				addTextToMainArea(`${defender.name} won't need this shiny [${monsterLoot}]. You might as well take it.`);
+			} else {
+				addTextToMainArea(`This ${defender.name} has no loot for you. Better luck with the next one.`);
+			}
 			hero.experienceCurrent = hero.experienceCurrent + defender.experienceWorth;
 			initializePostBattleView();
-			lootItems()
 			levelUp();
+			getItemsFromWherever(monsterLoot);
+			openLootChest();
 
-			function lootItems() {
-				// Maps dropped loot to items
+			function levelUp() {
+				if (hero.experienceCurrent >= hero.experienceToLevel) {
+					addTextToMainArea(`Level up! You gain 5hp.`);
+					hero.level++;
+					hero.maxHp = hero.maxHp + 4;
+					// fillHpProgressBar()
+					hero.experienceCurrent = hero.experienceCurrent - hero.experienceToLevel;
+					hero.experienceToLevel = hero.experienceToLevel + 3;
+					expProgressBar.innerHTML = `${hero.experienceCurrent}/${hero.experienceToLevel}`;
+					leveledUp = 1
+					refreshHeroSheet();
+				}
+			}
+			function openLootChest() {
+				if (fightNumberCounter === 4) { //Checks if it's the last fight
+					thingsInChest = [];
+					lootChest[currentPlace].loot.forEach(function(i) {
+						if ((1 - Math.random()) < i.chance) {
+							thingsInChest.push(i.name);
+						}
+					})
+					getItemsFromWherever(thingsInChest)
+					addTextToMainArea(`Congratulations! You've successfully defeated "Terrifying Monsters" and cleansed this place from all evil. At the deepest level, you've also found an ancient loot chest with a legendary loot: [${thingsInChest}]. Nice one.`)
+				}
+			}
+
+			function getItemsFromWherever(lootFromWherever) {
 				let droppedLootObjects = equipment.filter(el => {
 					let isItGoodItem;
-					monsterLoot.forEach(num => {
+					lootFromWherever.forEach(num => {
 						if (el.name == num) {
 							isItGoodItem = true;
 						};
@@ -558,18 +640,7 @@ function attack(attacker, defender) {
 						inventory.push(el)
 					})
 				}
-			}
-			function levelUp() {
-				if (hero.experienceCurrent >= hero.experienceToLevel) {
-					addTextToMainArea(`Level up! You gain 5hp.`);
-					hero.level++;
-					hero.maxHp = hero.maxHp + 5;
-					hero.hp = hero.maxHp;
-					hero.experienceCurrent = hero.experienceCurrent - hero.experienceToLevel;
-					hero.experienceToLevel = hero.experienceToLevel + 3;
-					leveledUp = 1
-				}
-			}		
+			} // It maps items from lootChests and monsters to equipment.		
 		} else { // if (defender === hero)
 			window.location.replace("gameOver.html")
 		}
@@ -601,11 +672,12 @@ function showItemsInInventory() {
 	function showItemByItem() {
 		addEquipmentWornItems()
 		addInventoryItems()
-		
+
 		function addEquipmentWornItems() {
 			hero.equipmentWorn.forEach((item, index) => {
 				const itemName = document.createElement("p");
 				itemName.appendChild(document.createTextNode("Equipped: " + item.name + " "));
+				addTooltip(itemName, item)
 				appendToGoodType();
 
 				function appendToGoodType() {
@@ -625,6 +697,7 @@ function showItemsInInventory() {
 			inventory.forEach((item, index) => {
 				const itemName = document.createElement("p");
 				itemName.appendChild(document.createTextNode(item.name + " "));
+				addTooltip(itemName, item)
 				appendToGoodType();
 				addEquipButton();
 
@@ -658,9 +731,6 @@ function showItemsInInventory() {
 						} else if (item.type == "amulet") {
 							console.log("amulet")
 						};
-						// console.log("New equipment worn:");
-						// console.log(hero.equipmentWorn)
-						// console.log(item)
 						inventory.splice(this.id, 1);
 
 
@@ -702,6 +772,13 @@ function showItemsInInventory() {
 
 			});
 		}
+		function addTooltip(itemName, item) {
+			itemName.className = "tooltipOutside";
+			const tooltip = document.createElement("span");
+			tooltip.className = "tooltipInside";
+			tooltip.appendChild(document.createTextNode(`Damage: ${item.minDmg}-${item.maxDmg}, Defense: ${item.defense}`));
+			itemName.appendChild(tooltip);
+		}
 	};
 }
 
@@ -716,14 +793,49 @@ function rest() {
 	day++;
 	dayNumber.innerHTML = `Day number: ${day}`;
 	restButton.style.display = "none";
-	hpProgressBarWidth = 100;
-	hpProgressBar.style.width = hpProgressBarWidth + '%'; 
-	hpProgressBar.innerHTML = `${hero.hp}/${hero.maxHp}`;
+	fillHpProgressBar()
 }
 
+// ============================ 9.CHEAT CODES ============================
+document.addEventListener("keydown", keyDown);
+function keyDown(e) {
+	if (e.keyCode === 67) {
+  		cheatMyWayToVictory();
+  	}
+}
 
+function cheatMyWayToVictory() {
+	window.alert("Oh you dirty little cheater, you")
+	// let bestWeapon = equipment[equipment.findIndex((el) => el.name === "Pointy Rock")]
+	findBestWeapon()
+	findBestArmor()
+	
+	function findBestWeapon() {
+		let bestDmg = 0;
+		let itemWithBestDmg;
+		equipment.forEach((el) => {
+			if (el.maxDmg > bestDmg) {
+				bestDmg = el.maxDmg;
+				itemWithBestDmg = el;
+			}
+		})
+		inventory.push(itemWithBestDmg)
+	} 
 
-// ============================ 9.RUN FUNCTIONS ON PAGE LOAD ============================
+	function findBestArmor() {
+		let bestDef = 0;
+		let itemWithBestDef;
+		equipment.forEach((el) => {
+			if (el.defense > bestDef) {
+				bestDef = el.maxDef;
+				itemWithBestDef = el;
+			}
+		})
+		inventory.push(itemWithBestDef)
+	} 
+}
+
+// ============================ 10.RUN FUNCTIONS ON PAGE LOAD ============================
 giveStartingItems()
 refreshHeroSheet()
 refreshHeroEquipment()
@@ -731,7 +843,7 @@ refreshEnemySheet()
 initializeCityView()
 
 function giveStartingItems() {
-	let weapon = equipment[equipment.findIndex((el) => el.name === "Club")]
+	let weapon = equipment[equipment.findIndex((el) => el.name === "Pointy Rock")]
 	hero.equipmentWorn.push(weapon)
 	hero.minDmg = weapon.minDmg;
 	hero.maxDmg = weapon.maxDmg;
