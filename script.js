@@ -22,23 +22,8 @@ const enemyPlace = [{
 		level: 1,
 		minDmg: 1,
 		maxDmg: 2,
-		hp: 8,
-		maxHp: 8,
-		defense: 0,
-		loot: [
-			{ 
-				name: "Thick Stick",
-				chance: 0.2
-			}],
-		experienceWorth: 1,
-	},
-	{
-		name: "Zombie's Arm",
-		level: 1,
-		minDmg: 1,
-		maxDmg: 2,
-		hp: 11,
-		maxHp: 11,
+		hp: 9,
+		maxHp: 9,
 		defense: 0,
 		loot: [
 			{ 
@@ -48,12 +33,27 @@ const enemyPlace = [{
 		experienceWorth: 1,
 	},
 	{
+		name: "Zombie's Arm",
+		level: 1,
+		minDmg: 1,
+		maxDmg: 2,
+		hp: 13,
+		maxHp: 13,
+		defense: 0,
+		loot: [
+			{ 
+				name: "Thick Stick",
+				chance: 0.35
+			}],
+		experienceWorth: 1,
+	},
+	{
 		name: "Elderly skeleton",
 		level: 2,
 		minDmg: 2,
 		maxDmg: 3,
-		hp: 7,
-		maxHp: 7,
+		hp: 8,
+		maxHp: 8,
 		defense: 0,
 		loot: [
 			{ 
@@ -70,61 +70,144 @@ const enemyPlace = [{
 {	
 	name: "Caves",
 	enemies: [{
-		name: "Golem",
+		name: "Small wolf",
 		level: 4,
 		minDmg: 2,
-		maxDmg: 4,
+		maxDmg: 5,
 		hp: 16,
 		maxHp: 16,
 		defense: 0,
 		loot: [
 			{ 
-				name: "Old Sword",
-				chance: 0.5
+				name: "Half-broken Bow",
+				chance: 0.2
 			},
 			{
 				name: "Used Cloth Armor",
-				chance: 1
+				chance: 0.3
 			}],
 		experienceWorth: 3,
 	},
 	{
-		name: "Elemental",
-		level: 7,
-		minDmg: 10,
-		maxDmg: 15,
-		hp: 40,
-		maxHp: 40,
+		name: "Toxic Mushroom",
+		level: 5,
+		minDmg: 2,
+		maxDmg: 4,
+		hp: 20,
+		maxHp: 20,
 		defense: 0,
 		loot: [
 			{ 
-				name: "Old Sword",
-				chance: 0.5
+				name: "Half-broken Bow",
+				chance: 0.3
 			},
 			{
 				name: "Used Cloth Armor",
-				chance: 1
+				chance: 0.3
 			}],
-		experienceWorth: 15,
+		experienceWorth: 4,
 	},
 	{
-		name: "Mage",
-		level: 10,
-		minDmg: 10,
-		maxDmg: 30,
-		hp: 30,
-		maxHp: 30,
+		name: "The Rock",
+		level: 6,
+		minDmg: 3,
+		maxDmg: 7,
+		hp: 14,
+		maxHp: 14,
+		defense: 0,
+		loot: [
+			{ 
+				name: "Almost-new Club",
+				chance: 0.3
+			},
+			{
+				name: "Dad's Quilted Armor",
+				chance: 0.2
+			}],
+		experienceWorth: 4,
+	}]
+},
+{	
+	name: "Dungeon",
+	enemies: [{
+		name: "Skeleton Archer",
+		level: 7,
+		minDmg: 4,
+		maxDmg: 8,
+		hp: 35,
+		maxHp: 35,
 		defense: 0,
 		loot: [
 			{ 
 				name: "Old Sword",
-				chance: 0.5
+				chance: 0.4
+			},
+			{ 
+				name: "Two-handed Hammer",
+				chance: 0.15
 			},
 			{
-				name: "Used Cloth Armor",
-				chance: 1
+				name: "Real Deal Ring Mail",
+				chance: 0.3
 			}],
-		experienceWorth: 20,
+		experienceWorth: 6,
+	},
+	{
+		name: "Confused Ogre",
+		level: 8,
+		minDmg: 4,
+		maxDmg: 9,
+		hp: 43,
+		maxHp: 43,
+		defense: 0,
+		loot: [
+			{ 
+				name: "Two-handed Hammer",
+				chance: 0.2
+			},
+			{
+				name: "Real Deal Ring Mail",
+				chance: 0.3
+			},
+			{
+				name: "Sword of Glory",
+				chance: 0.1
+			}],
+		experienceWorth: 7,
+	},
+	{
+		name: "The Thing",
+		level: 9,
+		minDmg: 5,
+		maxDmg: 9,
+		hp: 41,
+		maxHp: 41,
+		defense: 0,
+		loot: [
+			{ 
+				name: "Two-handed Hammer",
+				chance: 0.3
+			},
+			{
+				name: "Sword of Glory",
+				chance: 0.25
+			},
+			],
+		experienceWorth: 7,
+	}]
+},
+{	
+	name: "Castle",
+	enemies: [{
+		name: "Small Crippled DRAGON(!)",
+		level: 10,
+		minDmg: 10,
+		maxDmg: 13,
+		hp: 90,
+		maxHp: 90,
+		defense: 0,
+		loot: [],
+		experienceWorth: 50,
 	}]
 }]
 
@@ -135,20 +218,44 @@ const lootChest = [{
 	loot: [{
 		name: "Rags",
 		chance: 1
+	},
+	{
+		name: "Rusty Dagger",
+		chance: 0.6
 	}]
 },
 {
 	type: "Caves",
 	loot: [{
-		name: "Rags",
-		chance: 1
+		name: "Almost-new Club",
+		chance: 0.6
+	},
+	{
+		name: "Old Sword",
+		chance: 0.3
+	},
+	{
+		name: "Dad's Quilted Armor",
+		chance: 0.4
+	},
+	{
+		name: "Real Deal Ring Mail",
+		chance: 0.2
 	}]
 },
 {
-	type: "Maze",
+	type: "Dungeon",
 	loot: [{
-		name: "Rags",
-		chance: 1
+		name: "Legendary Gothic Plate",
+		chance: 0.3
+	},
+	{
+		name: "Sword of Glory",
+		chance: 0.4
+	},
+	{
+		name: "Legendary DragonSlayer",
+		chance: 0.25
 	}]
 },
 {
@@ -173,11 +280,47 @@ const equipment = [{
 {
 	type: "armor",
 	name: "Used Cloth Armor",
-	value: 5,
+	value: 2,
 	minDmg: 0,
 	maxDmg: 0,
 	defense: 2,
+	levelRequirement: 2,
+},
+{
+	type: "armor",
+	name: "Dad's Quilted Armor",
+	value: 3,
+	minDmg: 0,
+	maxDmg: 0,
+	defense: 3,
 	levelRequirement: 3,
+},
+{
+	type: "armor",
+	name: "Real Deal Ring Mail",
+	value: 4,
+	minDmg: 0,
+	maxDmg: 0,
+	defense: 4,
+	levelRequirement: 6,
+},
+{
+	type: "armor",
+	name: "Light Plate",
+	value: 5,
+	minDmg: 0,
+	maxDmg: 0,
+	defense: 5,
+	levelRequirement: 6,
+},
+{
+	type: "armor",
+	name: "Legendary Gothic Plate",
+	value: 6,
+	minDmg: 0,
+	maxDmg: 0,
+	defense: 7,
+	levelRequirement: 9,
 },
 {
 	type: "weapon",
@@ -191,7 +334,7 @@ const equipment = [{
 {
 	type: "weapon",
 	name: "Thick Stick",
-	value: 1,
+	value: 2,
 	minDmg: 2,
 	maxDmg: 3,
 	defense: 0,
@@ -200,7 +343,7 @@ const equipment = [{
 {
 	type: "weapon",
 	name: "Rotten Club",
-	value: 1,
+	value: 3,
 	minDmg: 2,
 	maxDmg: 5,
 	defense: 0,
@@ -209,7 +352,7 @@ const equipment = [{
 {
 	type: "weapon",
 	name: "Rusty Dagger",
-	value: 2,
+	value: 4,
 	minDmg: 3,
 	maxDmg: 5,
 	defense: 0,
@@ -217,37 +360,55 @@ const equipment = [{
 },
 {
 	type: "weapon",
-	name: "Old Sword",
+	name: "Half-broken Bow",
 	value: 5,
-	minDmg: 5,
-	maxDmg: 10,
+	minDmg: 3,
+	maxDmg: 7,
 	defense: 0,
 	levelRequirement: 4,
 },
 {
 	type: "weapon",
-	name: "Club",
-	value: 3,
-	minDmg: 2,
-	maxDmg: 4,
+	name: "Almost-new Club",
+	value: 6,
+	minDmg: 4,
+	maxDmg: 9,
+	defense: 0,
+	levelRequirement: 4,
+},
+{
+	type: "weapon",
+	name: "Old Sword",
+	value: 7,
+	minDmg: 5,
+	maxDmg: 11,
+	defense: 0,
+	levelRequirement: 4,
+},
+{
+	type: "weapon",
+	name: "Two-handed Hammer",
+	value: 8,
+	minDmg: 5,
+	maxDmg: 11,
+	defense: 0,
+	levelRequirement: 4,
+},
+{
+	type: "weapon",
+	name: "Sword of Glory",
+	value: 9,
+	minDmg: 7,
+	maxDmg: 10,
 	defense: 0,
 	levelRequirement: 1,
 },
 {
 	type: "weapon",
-	name: "Sword of glory",
-	value: 1,
-	minDmg: 3,
-	maxDmg: 6,
-	defense: 0,
-	levelRequirement: 1,
-},
-{
-	type: "weapon",
-	name: "Staff of everythingness",
-	value: 1,
-	minDmg: 500,
-	maxDmg: 1000,
+	name: "Legendary DragonSlayer",
+	value: 10,
+	minDmg: 8,
+	maxDmg: 12,
 	defense: 0,
 	levelRequirement: 1,
 },
@@ -295,7 +456,15 @@ place2.addEventListener("click", function() {
 	newBattlePlace(1)
 });
 
+const place3 = document.querySelector("#Place3");
+place3.addEventListener("click", function() {
+	newBattlePlace(2)
+});
 
+const place4 = document.querySelector("#Place4");
+place4.addEventListener("click", function() {
+	newBattlePlace(3)
+});
 
 
 
@@ -387,7 +556,7 @@ function initializeCityView() {
 	nextFightButton.style.display="none";
 	backToCityButton.style.display="none";
 	attackEnemyButton.style.display="none";
-	restButton.style.display="inline-block";
+	restButton.style.display="none"; //inline-block was here when rest was in game
 	inventoryButton.style.display="inline-block"
 }
 
@@ -431,6 +600,7 @@ function backToCity() {
 		currentEnemy.name = "none"
 		refreshEnemySheet()
 	}
+	rest()
 }
 
 function addTextToMainArea(text) {
@@ -524,6 +694,7 @@ function newBattlePlace(place) {
 	initializeBattleView();
 	pickRandomEnemy(place);
 	fightNumberCounter = 1;
+	showHint(1)
 }
 
 //Continuing old battle
@@ -585,18 +756,22 @@ function attack(attacker, defender) {
 	}
 	function isDead() {
 		if (defender === currentEnemy) {
+			if (currentEnemy.name === "Small Crippled DRAGON(!)") {
+				window.location.replace("victory.html")
+			}
 			addTextToMainArea(`${defender.name} is dead!`);
 			addTextToMainArea(`You gain +${defender.experienceWorth} experience`)
 			if (monsterLoot.length > 0) {
 				addTextToMainArea(`${defender.name} won't need this shiny [${monsterLoot}]. You might as well take it.`);
 			} else {
-				addTextToMainArea(`This ${defender.name} has no loot for you. Better luck with the next one.`);
+				addTextToMainArea(`This ${defender.name} has no loot for you. Maybe the next one will?`);
 			}
 			hero.experienceCurrent = hero.experienceCurrent + defender.experienceWorth;
 			initializePostBattleView();
 			levelUp();
 			getItemsFromWherever(monsterLoot);
 			openLootChest();
+			showHint(2)
 
 			function levelUp() {
 				if (hero.experienceCurrent >= hero.experienceToLevel) {
@@ -663,8 +838,8 @@ function showItemsInInventory() {
 		invRingArea.innerHTML="";
 		invMiscellanousArea.innerHTML="";
 		inventory.sort(function(a, b) {
-			if(a.name < b.name) return -1;
-	    	if(a.name > b.name) return 1;
+			if(a.value > b.value) return -1;
+	    	if(a.value < b.value) return 1;
 	    	return 0;
 		});
 	}
@@ -783,17 +958,27 @@ function showItemsInInventory() {
 }
 
 
-// ============================ 8.CITY ACTIONS ============================
+// ============================ 8.REST ============================
 // ==== X.1 REST
-let day = 1;
+let day = 0;
+let daysToEnd = 25
 const dayNumber = document.querySelector("#dayNumber");
+dayNumber.innerHTML = `Days left: ${daysToEnd - day}`;
 function rest() {
 	hero.hp = hero.maxHp;
 	refreshHeroSheet();
 	day++;
-	dayNumber.innerHTML = `Day number: ${day}`;
+	dayNumber.innerHTML = `Days left: ${daysToEnd - day}`;
 	restButton.style.display = "none";
 	fillHpProgressBar()
+	showHint(3)
+	if (day === daysToEnd) {
+		gameOverTooLong()
+	}
+}
+
+function gameOverTooLong() {
+	window.location.replace("helloDragonMyOldFriend.html")
 }
 
 // ============================ 9.CHEAT CODES ============================
@@ -827,7 +1012,7 @@ function cheatMyWayToVictory() {
 		let itemWithBestDef;
 		equipment.forEach((el) => {
 			if (el.defense > bestDef) {
-				bestDef = el.maxDef;
+				bestDef = el.defense;
 				itemWithBestDef = el;
 			}
 		})
@@ -835,12 +1020,51 @@ function cheatMyWayToVictory() {
 	} 
 }
 
-// ============================ 10.RUN FUNCTIONS ON PAGE LOAD ============================
+// ============================ 10.HINTS ============================
+
+const hintArea = document.querySelector(".hintArea")
+const hintText = document.querySelector("#hintText")
+const hints = [{
+	 	type: "hintNewAdventure",
+		wasItShown: 1,
+		text: "Welcome Dear Adventurer, It's nice to see you. You couldn't have arrived at a better moment. <br><br> A few days ago a DRAGON(!) attacked our city. We've managed to wound him, but he escaped and hid in the castle nearby. Please find him before 25 days pass or he will heal and destroy our city! <br><br> Oh, and looking at you, I think you might want to gather some loot... You'll find monsters in nearby places. Please don't die."
+	},
+	{
+		type: "hintFirstFight",
+		wasItShown: 1,
+		text: "Ooooh, you've found your first enemy. You may attack him. If you attack him enough times, he may or may not die. <br><br> Good Luck"
+	},
+	{
+		type: "hintFirstWin",
+		wasItShown: 1,
+		text: "Congratulations! <br>I knew you are the greatest of warriors! That DRAGON(!) in the castle is as good as dead. <br><br>You may go back to city to heal or continue cleaning this place. If you manage to defeat 3 enemies in a row, you might find a special loot. But be wary, once your health hits 0, it's over for good."
+	},
+	{
+		type: "hintRest",
+		wasItShown: 1,
+		text: "You've come back tired from an adventure. A good sleep healed your wounds but another day has passed. Please remember that you have only 25 days to kill that DRAGON(!) or he will also heal his wounds and kill us all!"
+	}]
+
+function showHint(which) {
+	if (hints[which].wasItShown === 0) {
+		hintText.innerHTML = hints[which].text
+		hintArea.style.display = "inline"
+		hints[which].wasItShown = 1
+	}
+}
+
+const hintButton = document.querySelector("#hintButton")
+hintButton.addEventListener("click", () => {hintArea.style.display = "none"})
+
+
+
+// ============================ 11.RUN FUNCTIONS ON PAGE LOAD ============================
 giveStartingItems()
 refreshHeroSheet()
 refreshHeroEquipment()
 refreshEnemySheet()
 initializeCityView()
+showHint(0)
 
 function giveStartingItems() {
 	let weapon = equipment[equipment.findIndex((el) => el.name === "Pointy Rock")]
