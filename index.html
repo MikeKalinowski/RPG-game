@@ -10,31 +10,26 @@
 	<h1 id="title">Game of Games</h1>
 	<div class="mainArea"></div>
 	<div class="mainAreaCity">
-		<h3>Pick a place to cleanse of all evil</h3>
+		<h3 class="tc">Pick a place to cleanse of all evil</h3>
+		<br>
 		<div class="battlePicker">
-			<button class="actionButton" id="Place1">Forest</button>
-			<button class="actionButton" id="Place2">Caves</button>
-			<button class="actionButton" id="Place3">Maze</button>
-			<button class="actionButton" id="Place4">Castle</button>
+			<div><button class="actionButton" id="Place1">Forest</button><br>Monster levels:<br>Just do it!</div>
+			<div><button class="actionButton" id="Place2">Caves</button><br>Monster levels:<br>4-6</div>
+			<div><button class="actionButton" id="Place3">Dungeon</button><br>Monster levels:<br>7-9</div>
+			<div><button class="actionButton" id="Place4">Castle</button><br>Monster levels:<br>DRAGON(!)</div>
 		</div>
 	</div><br>
 	<div class="bottomArea">
 		<div class="actionButtonsArea">
-<!-- 			<p class="tooltipOutside">To jest <span class="tooltipInside">tylko</span> test</p> -->
-			<p id="dayNumber">Day: 1</p>
+			<p id="dayNumber">Days left:</p>
 			Available actions: <br>
 			<button class="actionButton" id="attackEnemy">Attack</button>
 			<br>
 			<button class="actionButton" id="nextFight">Next fight</button>
 			<button class="actionButton" id="backToCity">Back to city</button>
-			<button class="actionButton" id="rest">Rest</button>
 			<button class="actionButton" id="inventory">Inventory</button>
+			<button class="actionButton" id="rest">Rest</button>
 		</div>
-<!-- 		<div class="inventoryArea">
-			<div>
-				<button class="actionButton" id="quitInventory2">Back</button>
-			</div>
-		</div> -->
 		<div class="heroSheet">
 			<h1 class="name">Hero</h1>
 			Level: <span id="heroLevel"></span><br>
@@ -68,15 +63,20 @@
 		</div>
 	</div>
 	<div class="bigInventoryArea">
-		<button class="actionButton" id="quitInventory">Back</button>
+		<button class="actionButton" id="quitInventory">Back</button><br>
+		[Mouse over an item to see its stats]
 		<table class="inventoryTable"></table>
 		<div class="bigInventoryAreaUnder">
-			<div class="invSmallAreas invWeaponArea"></div>
-			<div class="invSmallAreas invArmorArea"></div>
-			<div class="invSmallAreas invRingArea"></div>
-			<div class="invSmallAreas invMiscellanousArea"></div>
+			<div class="invSmallAreas"><span class="invTitle">Weapons</span><div class="invWeaponArea"></div></div>
+			<div class="invSmallAreas"><span class="invTitle">Armor</span><div class="invArmorArea"></div></div>
+			<div class="invSmallAreas"><span class="invTitle">Under Construction</span><div class="invRingArea"></div></div>
+			<div class="invSmallAreas"><span class="invTitle">Under Construction</span><div class="invMiscellanousArea"></div></div>
 		</div>
 		<div class="inventoryListArea"></div>
+	</div>
+	<div class="hintArea">
+		<p id="hintText"></p>
+		<button id="hintButton">OK</button>
 	</div>
 	<script type="text/javascript" src="script.js"></script>
 </body>
