@@ -1026,22 +1026,22 @@ const hintArea = document.querySelector(".hintArea")
 const hintText = document.querySelector("#hintText")
 const hints = [{
 	 	type: "hintNewAdventure",
-		wasItShown: 1,
+		wasItShown: 0,
 		text: "Welcome Dear Adventurer, It's nice to see you. You couldn't have arrived at a better moment. <br><br> A few days ago a DRAGON(!) attacked our city. We've managed to wound him, but he escaped and hid in the castle nearby. Please find him before 25 days pass or he will heal and destroy our city! <br><br> Oh, and looking at you, I think you might want to gather some loot... You'll find monsters in nearby places. Please don't die."
 	},
 	{
 		type: "hintFirstFight",
-		wasItShown: 1,
+		wasItShown: 0,
 		text: "Ooooh, you've found your first enemy. You may attack him. If you attack him enough times, he may or may not die. <br><br> Good Luck"
 	},
 	{
 		type: "hintFirstWin",
-		wasItShown: 1,
+		wasItShown: 0,
 		text: "Congratulations! <br>I knew you are the greatest of warriors! That DRAGON(!) in the castle is as good as dead. <br><br>You may go back to city to heal or continue cleaning this place. If you manage to defeat 3 enemies in a row, you might find a special loot. But be wary, once your health hits 0, it's over for good."
 	},
 	{
 		type: "hintRest",
-		wasItShown: 1,
+		wasItShown: 0,
 		text: "You've come back tired from an adventure. A good sleep healed your wounds but another day has passed. Please remember that you have only 25 days to kill that DRAGON(!) or he will also heal his wounds and kill us all!"
 	}]
 
