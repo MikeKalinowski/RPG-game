@@ -255,7 +255,7 @@ const lootChest = [{
 	},
 	{
 		name: "Legendary DragonSlayer",
-		chance: 0.25
+		chance: 0.35
 	}]
 },
 {
@@ -381,7 +381,7 @@ const equipment = [{
 	name: "Old Sword",
 	value: 7,
 	minDmg: 5,
-	maxDmg: 11,
+	maxDmg: 10,
 	defense: 0,
 	levelRequirement: 4,
 },
@@ -775,7 +775,7 @@ function attack(attacker, defender) {
 
 			function levelUp() {
 				if (hero.experienceCurrent >= hero.experienceToLevel) {
-					addTextToMainArea(`Level up! You gain 5hp.`);
+					addTextToMainArea(`Level up! You gain 4hp.`);
 					hero.level++;
 					hero.maxHp = hero.maxHp + 4;
 					// fillHpProgressBar()
