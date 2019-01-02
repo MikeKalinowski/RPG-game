@@ -34,9 +34,9 @@ body {
 
 .grid-container-mainNormal {
 	grid-template-areas:
-	  'placesArea'
-	  'heroArea'
-	  'daysLeftArea';
+		'daysLeftArea'
+	  	'heroArea'
+	  	'placesArea';
 	grid-template-columns: 320px;
 }
 
@@ -295,9 +295,9 @@ h1 {
 	}
 	.grid-container-mainNormal {
 		grid-template-areas:
-		  'placesArea'
+		  'daysLeftArea'
 		  'heroArea'
-		  'daysLeftArea';
+		  'placesArea';
 		grid-template-columns: 520px;
 	}
 	.grid-container-fight {
