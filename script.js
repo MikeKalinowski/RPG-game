@@ -431,9 +431,6 @@ const equipment = [{
 const attackEnemyButton = document.querySelector("#attackEnemy");
 attackEnemyButton.addEventListener("click", calculateRound);
 
-const restButton = document.querySelector("#rest");
-restButton.addEventListener("click", rest);
-
 const nextFightButton = document.querySelector("#nextFight");
 nextFightButton.addEventListener("click", nextFight);
 
@@ -462,12 +459,12 @@ place4.addEventListener("click", () => newBattlePlace(3));
 
 // ============================ 3.HERO AND ENEMY STATS SCREENS===========================
 
+const heroSheet = document.querySelector(".heroSheet");
 const heroSheetLevel = document.querySelector("#heroLevel");
-const heroSheetExperience = document.querySelector("#heroExperience");
-const heroSheetHp = document.querySelector("#heroHp");
+// const heroSheetExperience = document.querySelector("#heroExperience");
+// const heroSheetHp = document.querySelector("#heroHp");
 const heroSheetDamage = document.querySelector("#heroDamage");
 const heroSheetDefense = document.querySelector("#heroDefense");
-const heroSheetGold = document.querySelector("#heroGold");
 const heroSheetWeapon = document.querySelector("#heroWeapon");
 const heroSheetArmor = document.querySelector("#heroArmor");
 const heroSheetRing = document.querySelector("#heroRing");
@@ -475,8 +472,8 @@ const heroSheetAmulet = document.querySelector("#heroAmulet");
 
 function refreshHeroSheet() {
 	heroSheetLevel.innerHTML = hero.level;
-	heroSheetExperience.innerHTML = `${hero.experienceCurrent}/${hero.experienceToLevel}`;
-	heroSheetHp.innerHTML = `${hero.hp}/${hero.maxHp}`;
+	// heroSheetExperience.innerHTML = `${hero.experienceCurrent}/${hero.experienceToLevel}`;
+	// heroSheetHp.innerHTML = `${hero.hp}/${hero.maxHp}`;
 	moveExpProgressBar();
 	moveHpProgressBar(hero.hp, hero.maxHp, hpProgressBar);
 }
@@ -484,7 +481,6 @@ function refreshHeroSheet() {
 function refreshHeroEquipment() {
 	heroSheetDamage.innerHTML = `${hero.minDmg}-${hero.maxDmg}`;
 	heroSheetDefense.innerHTML = `${hero.defense}`;
-	heroSheetGold.innerHTML = hero.gold;
 	refreshEquipmentWorn();
 
 	function refreshEquipmentWorn() {
@@ -506,7 +502,7 @@ function refreshHeroEquipment() {
 const enemySheet = document.querySelector(".enemySheet");
 const enemySheetName = document.querySelector("#enemyName");
 const enemySheetLevel = document.querySelector("#enemyLevel");
-const enemySheetHp = document.querySelector("#enemyHp");
+// const enemySheetHp = document.querySelector("#enemyHp");
 const enemySheetDamage = document.querySelector("#enemyDamage");
 
 let currentEnemy = {name: "none"}; //It will copy one of enemies' sheets later
@@ -514,12 +510,12 @@ let currentEnemy = {name: "none"}; //It will copy one of enemies' sheets later
 function refreshEnemySheet() {
 	enemySheetName.innerHTML = `Enemy: ${currentEnemy.name}`;
 	enemySheetLevel.innerHTML = currentEnemy.level;
-	enemySheetHp.innerHTML = `${currentEnemy.hp}/${currentEnemy.maxHp}`;
+	// enemySheetHp.innerHTML = `${currentEnemy.hp}/${currentEnemy.maxHp}`;
 	enemySheetDamage.innerHTML = `${currentEnemy.minDmg}-${currentEnemy.maxDmg}`;
 	hideEnemySheetIfNoEnemy();
 
 	function hideEnemySheetIfNoEnemy() {
-		(currentEnemy.name === "none") ? enemySheet.style.visibility="hidden" :	enemySheet.style.visibility="visible";
+		(currentEnemy.name === "none") ? enemySheet.style.display="none" :	enemySheet.style.display="block";
 	}
 }
 
@@ -528,39 +524,61 @@ function refreshEnemySheet() {
 
 // ============================ 4.HTML AREAS ============================
 
-const mainArea = document.querySelector(".mainArea");
-const mainAreaCity = document.querySelector(".mainAreaCity");
-const bottomArea = document.querySelector(".bottomArea");
+const wrapper = document.querySelector(".wrapper");
+const battleLogArea = document.querySelector(".battleLogArea");
+const placesArea = document.querySelector(".placesArea");
+const daysLeftArea = document.querySelector(".daysLeftArea");
 const inventoryListArea = document.querySelector(".inventoryListArea");
-const actionButtonsArea = document.querySelector(".actionButtonsArea");
 const bigInventoryArea = document.querySelector(".bigInventoryArea");
 const invWeaponArea = document.querySelector(".invWeaponArea");
 const invArmorArea = document.querySelector(".invArmorArea");
 const invRingArea = document.querySelector(".invRingArea");
 const invMiscellanousArea = document.querySelector(".invMiscellanousArea");
+const equipmentList = document.querySelector("#equipmentList");
+const enemyDead = document.querySelector("#enemyDead");
+
+
+let initializeSimpleView = 0
 
 function initializeCityView() {
-	mainArea.style.display="none";
-	mainArea.innerHTML="";
-	mainAreaCity.style.display="block";
+	wrapper.classList.remove("grid-container-mainFirst");
+	wrapper.classList.add("grid-container-mainNormal");
+	battleLogArea.style.display="none";
+	battleLogArea.innerHTML="";
+	placesArea.style.display="block";
+	daysLeftArea.style.display="block";
+	heroSheet.style.display="block";
+	equipmentList.style.display="block";
 	nextFightButton.style.display="none";
 	backToCityButton.style.display="none";
 	attackEnemyButton.style.display="none";
-	restButton.style.display="none"; //inline-block was here when rest was in game
 	inventoryButton.style.display="inline-block";
+	if (initializeSimpleView == 0) {
+		wrapper.classList.remove("grid-container-mainNormal");
+		wrapper.classList.add("grid-container-mainFirst");
+		heroSheet.style.display="none";
+		daysLeftArea.style.display="none";
+	}
+	initializeSimpleView = 1;
 }
 
 function initializeBattleView() {
-	mainArea.style.display="block";
-	mainAreaCity.style.display="none";
+	wrapper.classList.remove("grid-container-mainNormal");
+	wrapper.classList.add("grid-container-fight");
+	battleLogArea.style.display="block";
+	heroSheet.style.display="block";
+	placesArea.style.display="none";
+	equipmentList.style.display="none";
+	enemyDead.style.display="none";
 	nextFightButton.style.display="none";
 	backToCityButton.style.display="none";
+	daysLeftArea.style.display="none";
 	attackEnemyButton.style.display="inline-block";
-	restButton.style.display="none";
 	inventoryButton.style.display="none";
 }
 
 function initializePostBattleView() {
+	enemyDead.style.display="block";
 	backToCityButton.style.display="inline-block";
 	attackEnemyButton.style.display="none";
 	fightNumberCounter = fightNumberCounter + 1;
@@ -568,20 +586,23 @@ function initializePostBattleView() {
 }
 
 function initializeBigInventoryView() {
-	mainArea.style.display="none";
-	mainAreaCity.style.display="none";
-	bottomArea.style.display="none";
+	wrapper.classList.remove("grid-container-mainNormal");
+	wrapper.classList.add("grid-container-inventory");
+	placesArea.style.display="none";
+	daysLeftArea.style.display="none";
 	bigInventoryArea.style.display="block";
+	heroSheet.style.display="none";
 	showItemsInInventory();
 }
 
 function quitInventoryView() {
+	wrapper.classList.remove("grid-container-inventory");
 	bigInventoryArea.style.display="none";
-	bottomArea.style.display="flex";
 	initializeCityView();
 }
 
 function backToCity() {
+	wrapper.classList.remove("grid-container-fight");
 	clearEnemy();
 	initializeCityView();	
 	function clearEnemy() {
@@ -591,26 +612,26 @@ function backToCity() {
 	rest();
 }
 
-function addTextToMainArea(text) {
+function addTextTobattleLogArea(text) {
 	const itemName = document.createElement("p");
 	itemName.appendChild(document.createTextNode(text));
-	mainArea.appendChild(itemName);
+	battleLogArea.appendChild(itemName);
 	itemName.setAttribute("class", "mainText");
 	const topPos = itemName.offsetTop; //Scrolls div to bottom
-	mainArea.scrollTop = topPos;
+	battleLogArea.scrollTop = topPos;
 }
 
 
 // ==== 4.1 Progress bars
 
 const expProgressBar = document.getElementById("expProgressBar"); 
-var leveledUp = 0;
-var expProgressBarWidth = 0;
+let leveledUp = 0;
+let expProgressBarWidth = 0;
 
 function moveExpProgressBar() {
 	let maximumWidth = Math.floor(hero.experienceCurrent/hero.experienceToLevel*100);
 	let widthDifference = Math.floor(100/hero.experienceToLevel);
-	var id = setInterval(frame, 50);
+	let id = setInterval(frame, 50);
 	if (leveledUp === 1) {
 		leveledUp = 0;
 		expProgressBarWidth = 0;
@@ -637,7 +658,7 @@ function moveHpProgressBar(statToMoveCurrent, statToMoveMax, bar) {
 	let maximumWidth = Math.floor(statToMoveCurrent/statToMoveMax*100);
 	let widthDifference = Math.floor(100/statToMoveMax);
 	let barWidth = bar.style.width.slice(-4,-1);
-	var id = setInterval(frame, 50, statToMoveCurrent, statToMoveMax, bar, barWidth);
+	let id = setInterval(frame, 50, statToMoveCurrent, statToMoveMax, bar, barWidth);
 
 	function frame() {
 	    (barWidth <= maximumWidth) ? clearInterval(id) : animateBarMovement(statToMoveCurrent, statToMoveMax, bar, barWidth, widthDifference)
@@ -669,9 +690,9 @@ function nextFight() {
 
 function pickRandomEnemy(place) {
 	//Count number of fights?
-	mainArea.innerHTML = "";
+	battleLogArea.innerHTML = "";
 	currentEnemy = Object.assign({}, enemyPlace[place].enemies[Math.floor(Math.random() * enemyPlace[place].enemies.length)]);
-	addTextToMainArea(`You met a ${currentEnemy.name}. Prepare for battle!`);
+	addTextTobattleLogArea(`You met a ${currentEnemy.name}. Prepare for battle!`);
 	refreshEnemySheet();
 	currentPlace = place;
 	addLootToMonster();
@@ -692,7 +713,7 @@ function pickRandomEnemy(place) {
 
 // ============================ 6.FIGHTING ============================
 function calculateRound() {
-	addTextToMainArea("=====");
+	addTextTobattleLogArea("=====");
 	attack(hero, currentEnemy);
 	if (currentEnemy.hp !== 0) attack(currentEnemy, hero);
 	refreshHeroSheet();
@@ -704,7 +725,7 @@ function attack(attacker, defender) {
 	defender.hp = defender.hp - dmgDealt;
 	defender.hp < 0 ? defender.hp=0 : "";
 	moveHpProgressBar(currentEnemy.hp, currentEnemy.maxHp, hpEnProgressBar);
-	addTextToMainArea(`${defender.name} receives ${dmgDealt} damage. He has ${defender.hp}hp left`);
+	addTextTobattleLogArea(`${defender.name} receives ${dmgDealt} damage. He has ${defender.hp}hp left`);
 	if (defender.hp <= 0) isDead();
 
 	function calculateAttackDmg(attacker, defender) {
@@ -715,12 +736,12 @@ function attack(attacker, defender) {
 	function isDead() {
 		if (defender === currentEnemy) {
 			if (currentEnemy.name === "Small Crippled DRAGON(!)") window.location.replace("victory.html");
-			addTextToMainArea(`${defender.name} is dead!`);
-			addTextToMainArea(`You gain +${defender.experienceWorth} experience`);
+			addTextTobattleLogArea(`${defender.name} is dead!`);
+			addTextTobattleLogArea(`You gain +${defender.experienceWorth} experience`);
 			if (monsterLoot.length > 0) {
-				addTextToMainArea(`${defender.name} won't need this shiny [${monsterLoot}]. You might as well take it.`);
+				addTextTobattleLogArea(`${defender.name} won't need this shiny [${monsterLoot}]. You might as well take it.`);
 			} else {
-				addTextToMainArea(`This ${defender.name} has no loot for you. Maybe the next one will?`);
+				addTextTobattleLogArea(`This ${defender.name} has no loot for you. Maybe the next one will?`);
 			}
 			hero.experienceCurrent = hero.experienceCurrent + defender.experienceWorth;
 			initializePostBattleView();
@@ -731,7 +752,7 @@ function attack(attacker, defender) {
 
 			function levelUp() {
 				if (hero.experienceCurrent >= hero.experienceToLevel) {
-					addTextToMainArea(`Level up! You gain 4hp.`);
+					addTextTobattleLogArea(`Level up! You gain 4hp.`);
 					hero.level++;
 					hero.maxHp = hero.maxHp + 4;
 					hero.experienceCurrent = hero.experienceCurrent - hero.experienceToLevel;
@@ -748,7 +769,7 @@ function attack(attacker, defender) {
 						if ((1 - Math.random()) < i.chance) thingsInChest.push(i.name);
 					});
 					getItemsFromWherever(thingsInChest);
-					addTextToMainArea(`Congratulations! You've successfully defeated "Terrifying Monsters" and cleansed this place from all evil. At the deepest level, you've also found an ancient loot chest with a legendary loot: [${thingsInChest}]. Nice one.`);
+					addTextTobattleLogArea(`Congratulations! You've successfully defeated "Terrifying Monsters" and cleansed this place from all evil. At the deepest level, you've also found an ancient loot chest with a legendary loot: [${thingsInChest}]. Nice one.`);
 				}
 			}
 
@@ -889,13 +910,12 @@ function showItemsInInventory() {
 let day = 0;
 let daysToEnd = 25;
 const dayNumber = document.querySelector("#dayNumber");
-dayNumber.innerHTML = `Days left: ${daysToEnd - day}`;
+dayNumber.innerHTML = `${daysToEnd - day} days`;
 function rest() {
 	hero.hp = hero.maxHp;
 	refreshHeroSheet();
 	day++;
-	dayNumber.innerHTML = `Days left: ${daysToEnd - day}`;
-	// restButton.style.display = "none";
+	dayNumber.innerHTML = `${daysToEnd - day} days`;
 	fillHpProgressBar();
 	showHint(3);
 	if (day === daysToEnd) gameOverTooLong();
@@ -938,39 +958,50 @@ function cheatMyWayToVictory() {
 // ============================ 10.HINTS ============================
 
 const hintArea = document.querySelector(".hintArea");
+const hintTitle = document.querySelector("#hintTitle");
 const hintText = document.querySelector("#hintText");
+const overlay = document.querySelector("#overlay");
 const hints = [{
 	 	type: "hintNewAdventure",
 		wasItShown: 0,
-		text: "Welcome Dear Adventurer, It's nice to see you. You couldn't have arrived at a better moment. <br><br> A few days ago a DRAGON(!) attacked our city. We've managed to wound him, but he escaped and hid in the castle nearby. Please find him before 25 days pass or he will heal and destroy our city! <br><br> Oh, and looking at you, I think you might want to gather some loot... You'll find monsters in nearby places. Please don't die."
+		title: "Welcome Dear Adventurer",
+		text: "Hello there, It's nice to see you. You couldn't have arrived at a better moment. <br><br> A few days ago a DRAGON(!) attacked our city. We've managed to wound him, but he escaped and hid in the castle nearby. Please find him before 25 days pass or he will heal and destroy our city! <br><br> Oh, and looking at you, I think you might want to gather some loot... You'll find monsters in nearby places. Please don't die."
 	},
 	{
 		type: "hintFirstFight",
 		wasItShown: 0,
+		title: "First challenge",
 		text: "Ooooh, you've found your first enemy. You may attack him. If you attack him enough times, he may or may not die. <br><br> Good Luck"
 	},
 	{
 		type: "hintFirstWin",
 		wasItShown: 0,
+		title: "First victory",
 		text: "Congratulations! <br>I knew you are the greatest of warriors! That DRAGON(!) in the castle is as good as dead. <br><br>You may go back to city to heal or continue cleaning this place. If you manage to defeat 3 enemies in a row, you might find a special loot. But be wary, once your health hits 0, it's over for good."
 	},
 	{
 		type: "hintRest",
 		wasItShown: 0,
-		text: "You've come back tired from an adventure. A good sleep healed your wounds but another day has passed. Please remember that you have only 25 days to kill that DRAGON(!) or he will also heal his wounds and kill us all!"
+		title: "Rest",
+		text: "You've come back tired from an adventure. A good sleep healed your wounds but another day has passed. Please remember that you have only 25 days to kill that DRAGON(!) or he will recover and kill us all!"
 	}
 ];
 
 function showHint(which) {
 	if (hints[which].wasItShown === 0) {
+		hintTitle.innerHTML = hints[which].title;
 		hintText.innerHTML = hints[which].text;
 		hintArea.style.display = "inline";
 		hints[which].wasItShown = 1;
+		overlay.style.display = "block"
 	}
 }
 
 const hintButton = document.querySelector("#hintButton");
-hintButton.addEventListener("click", () => hintArea.style.display = "none");
+hintButton.addEventListener("click", () => {
+	hintArea.style.display = "none";
+	overlay.style.display = "none";
+});
 
 
 
