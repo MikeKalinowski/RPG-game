@@ -1,5 +1,6 @@
 body {
 	background-color: #FFF5E8;
+	margin-bottom: 30px
 }
 
 .innerArea {
@@ -64,6 +65,10 @@ body {
 	border: 1px solid black;
 	overflow: auto;
 	padding: 5px;
+}
+
+.placesArea {
+	overflow: initial;
 }
 
 .placePhoto {
